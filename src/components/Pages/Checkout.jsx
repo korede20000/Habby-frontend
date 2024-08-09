@@ -7,7 +7,7 @@ const Checkout = () => {
   const { cartItems, totalAmount , isauthenticated} = useContext(FoodContext);
 
   if(!isauthenticated){
-    return  <Navigate to="/login"/>
+    return <Navigate to="/login"/>
   }
 
 

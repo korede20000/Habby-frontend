@@ -2,12 +2,13 @@ import FoodContext from "../../context/FoodContext"
 import { useContext } from "react";
 import {MdDelete} from "react-icons/md"
 import { Link } from "react-router-dom";
+import {Navigate} from "react-router-dom"
 
 const Cart = () => {
     const {cartItems, updateQuantity, totalAmount, deleteItems, calculateDeliveryFee, isAuthenticated} = useContext(FoodContext);
 
-    if(!isAuthenticated){
-        return <Naviagte to="/login"/>
+    if(!isAuthenticated) {
+        return <Navigate to="/login"/>
     }
 
   const cartTable=(
