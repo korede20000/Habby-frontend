@@ -41,15 +41,6 @@ const MenuItem = () => {
             {restaurants && (
                 <div>
                     <h2 className="text-orange-600 text-2xl font-serif ml-10 my-10">{restaurants.name} Menu Items</h2>
-                    <div className="text-left p-4">
-                        <h3 className="text-lg font-bold">Operating Hours</h3>
-                        {restaurants.operatingHours.map((oh, index) => (
-                            <p key={index} className="text-sm">
-                                <span className="font-bold capitalize">{oh.day}:</span> {oh.hours}
-                            </p>
-                        ))}
-                    </div>
-                    {restaurants.location && <RestaurantMap location={restaurants.location} name={restaurants.name} />}
                 </div>
             )}
             <div className="my-[40px] mx-[95px]">
