@@ -47,12 +47,13 @@ const MenuItem = () => {
                 <h1 className="mb-[10px] text-orange-600 font-bold font-serif text-2xl text-center">Explore our Menu</h1>
                 {Object.keys(groupedItems).map((category) => (
                     <div key={category}>
-                        <h3 className="text-xl font-bold text-orange-600">{category}</h3>
+                        <h3 className="text-xl font-bold text-orange-600">{category.name}</h3>
                         <div className="flex gap-12 flex-wrap">
                             {groupedItems[category].map((item) => (
                                 <Card key={item._id}>
                                     <Link to=""><img src={"https://habby-api.onrender.com/" + item.img} alt="" className="h-[200px] w-[200px] mx-auto my-5" /></Link>
                                     <p className="font-bold pt-2 font-serif">{item.name}</p>
+                                    <p className="text-neutral-300 font-light">{item.description}</p>
                                     <p className="font-medium">{item.price}</p>
                                     <button onClick={isAuthenticated ? () => addToCart(item._id) : login} className="text-orange-600 text-2xl p-[10px] rounded mt-[10px]">
                                         <IoIosAddCircleOutline />
