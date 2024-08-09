@@ -9,8 +9,8 @@ import { IoIosAddCircleOutline } from "react-icons/io";
 
 const MenuItem = () => {
     const { id } = useParams()
-    const { menuItem, fetchMenuItem, restaurant, addToCart } = useContext(FoodContext)
-    const [state, dispatch] = useContext(AuthContext) 
+    const { menuItem, fetchMenuItem, restaurant, addToCart} = useContext(FoodContext)
+    const [state, dispatch] = useContext(AuthContext)  
     const isAuthenticated = state.accessToken !== null
     const redirect = useNavigate()
 
@@ -26,7 +26,7 @@ const MenuItem = () => {
 
     const restaurants = restaurant.find(rest => rest._id === id);
 
-    // Group menu items by category
+
     const groupedItems = menuItem.reduce((acc, item) => {
         const category = item.category || "Uncategorized";
         if (!acc[category]) {
@@ -47,7 +47,7 @@ const MenuItem = () => {
                 <h1 className="mb-[10px] text-orange-600 font-bold font-serif text-2xl text-center">Explore our Menu</h1>
                 {Object.keys(groupedItems).map((category) => (
                     <div key={category}>
-                        <h3 className="text-xl font-bold text-orange-600">{category.name}</h3>
+                        <h3 className="text-xl font-bold text-orange-600">{item.category.name}</h3>
                         <div className="flex gap-12 flex-wrap">
                             {groupedItems[category].map((item) => (
                                 <Card key={item._id}>
