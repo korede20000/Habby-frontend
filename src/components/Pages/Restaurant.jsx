@@ -29,7 +29,7 @@ const Restaurant = () => {
             {filteredRestaurants.map((restaurant) => (
               <div className="border border-white lg:w-[350px] w-[250px] h-[260px] my-4 outline-1 text-center rounded-2xl shadow-2xl hover:scale-90 duration-200" key={restaurant._id}>
                 <Link to={`/restaurant/${restaurant._id}`}>
-                  <img src={"http://localhost:3000/" + restaurant.img} alt="" className="lg:h-[150px] lg:w-[300px] h-[150px] w-[200px] rounded-lg lg:px-5 px-3 lg:mx-0 mx-5 py-5" />
+                  <img src={"https://habby-api.onrender.com/" + restaurant.img} alt="" className="lg:h-[150px] lg:w-[300px] h-[150px] w-[200px] rounded-lg lg:px-5 px-3 lg:mx-0 mx-5 py-5" />
                 </Link>
                 <p className="font-bold pt-2 text-black">{restaurant.name}</p>
                 <div className="flex lg:px-16 px-24">

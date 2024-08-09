@@ -54,13 +54,13 @@ export const FoodProvider = ({ children}) => {
 
 
     const fetchMenu = async () => {
-        const response = await fetch("http://localhost:3000/api/menu")
+        const response = await fetch("https://habby-api.onrender.com/api/menu")
         const data = await response.json()
         setMenu(data) 
       }  
 
     const fetchRestaurant = async () => {
-        const response = await fetch("http://localhost:3000/api/restaurant")
+        const response = await fetch("https://habby-api.onrender.com/api/restaurant")
         const data = await response.json()
         setRestaurant(data)
         SetLoading(false)
@@ -68,7 +68,7 @@ export const FoodProvider = ({ children}) => {
 
     const fetchMenuItem = async (restaurantId) => {
         try {
-            const response = await fetch(`http://localhost:3000/api/menuItem/${restaurantId}`)
+            const response = await fetch(`https://habby-api.onrender.com/api/menuItem/${restaurantId}`)
         const data = await response.json()
         setMenuItem(data)
         if (Array.isArray(data)){
@@ -84,7 +84,7 @@ export const FoodProvider = ({ children}) => {
 
     const fetchAllMenuItem = async () => {
         try {
-            const response = await fetch('http://localhost:3000/api/menuItem')
+            const response = await fetch('https://habby-api.onrender.com/api/menuItem')
             const data = await response.json()
             // setMenuItem(Array.isArray(data) ? data : [])
             if (Array.isArray(data)){
@@ -101,7 +101,7 @@ export const FoodProvider = ({ children}) => {
 
     const addToCart = async (menuItemId) =>{
         try {
-          const res = await fetch("http://localhost:3000/addToCart", {
+          const res = await fetch("https://habby-api.onrender.com/addToCart", {
             method: "POST",
             headers: {
               "Content-Type": "application/json", "auth-token": `${localStorage.getItem("auth-token")}`,
@@ -124,7 +124,7 @@ export const FoodProvider = ({ children}) => {
 
       const fetchCart = async () => {
         try {
-          const res = await fetch("http://localhost:3000/cart", {
+          const res = await fetch("https://habby-api.onrender.com/cart", {
             method: "GET",
             headers: {
               "Content-Type": "application/json",
@@ -151,7 +151,7 @@ export const FoodProvider = ({ children}) => {
           return;
         }
         try {
-          const res = await fetch("http://localhost:3000/update-quantity", {
+          const res = await fetch("https://habby-api.onrender.com/update-quantity", {
             method: "POST",
             headers: {
             "Content-Type": "application/json", "auth-token": `${localStorage.getItem("auth-token")}`,
@@ -179,7 +179,7 @@ export const FoodProvider = ({ children}) => {
 
       const deleteItems = async (menuItemId) => {
         try {
-          const res = await fetch("http://localhost:3000/delete-item", {
+          const res = await fetch("https://habby-api.onrender.com/delete-item", {
             method: "POST",
             headers: {
               "Content-Type": "application/json",
@@ -214,7 +214,7 @@ export const FoodProvider = ({ children}) => {
 
       const createOrder = async(transaction_id, orderId)=>{
         try {
-          const response = await fetch("http://localhost:3000/api/payment/verify", {
+          const response = await fetch("https://habby-api.onrender.com/api/payment/verify", {
             method: "POST",
             headers: {
               "Content-Type": "application/json",

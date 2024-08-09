@@ -25,7 +25,7 @@ const Checkout = () => {
     const address = e.target.elements.address.value;
 
     try {
-      const res = await fetch("http://localhost:3000/api/payment/initiate", {
+      const res = await fetch("https://habby-api.onrender.com/api/payment/initiate", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -72,7 +72,7 @@ const Checkout = () => {
                 <td className="py-2">
                   <div className="flex justify-center">
                     <img
-                      src={"http://localhost:3000/" + item.menuItem.img}
+                      src={"https://habby-api.onrender.com/" + item.menuItem.img}
                       className="h-12"
                       alt=""
                     />

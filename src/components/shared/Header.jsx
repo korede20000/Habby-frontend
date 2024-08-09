@@ -82,7 +82,7 @@ const Header = () => {
         </div>
         <div className="text-[15px] font-medium flex items-center gap-2 overflow-auto">
         {user && user.img && (
-            <Link to="/profile"><img src={`http://localhost:3000/${user?.img}`} alt="" className="h-7 outline-1 w-7 rounded-full ml-5" /></Link>
+            <Link to="/profile"><img src={`https://habby-api.onrender.com/${user?.img}`} alt="" className="h-7 outline-1 w-7 rounded-full ml-5" /></Link>
         )}
           
           <p className="pl-7 lg:pl-0">Hi, {user?.firstName}!</p>

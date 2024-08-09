@@ -35,7 +35,7 @@ const Cart = () => {
                         <td className="font-serif">{item.menuItem.name}</td>
                         <td>  
                             <div className="flex justify-center my-1">
-                                <img src={ "http://localhost:3000/" + item.menuItem.img} alt="" className="h-[50px] w-[50px] outline outline-1 outline-orange-500 " />
+                                <img src={ "https://habby-api.onrender.com/" + item.menuItem.img} alt="" className="h-[50px] w-[50px] outline outline-1 outline-orange-500 " />
                             </div>
                         </td>
                         <td className="font-semibold">{item.menuItem?.price}</td>

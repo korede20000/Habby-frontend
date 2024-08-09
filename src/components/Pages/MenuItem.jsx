@@ -60,7 +60,7 @@ const MenuItem = () => {
                         <div className="flex gap-12 flex-wrap">
                             {groupedItems[category].map((item) => (
                                 <Card key={item._id}>
-                                    <Link to=""><img src={"http://localhost:3000/" + item.img} alt="" className="h-[200px] w-[200px] mx-auto my-5" /></Link>
+                                    <Link to=""><img src={"https://habby-api.onrender.com/" + item.img} alt="" className="h-[200px] w-[200px] mx-auto my-5" /></Link>
                                     <p className="font-bold pt-2 font-serif">{item.name}</p>
                                     <p className="font-medium">{item.price}</p>
                                     <button onClick={isAuthenticated ? () => addToCart(item._id) : login} className="text-orange-600 text-2xl p-[10px] rounded mt-[10px]">

@@ -25,7 +25,7 @@ const Profile = () => {
 
     useEffect(() => {
         // Fetch user profile
-        fetch("http://localhost:3000/user", {
+        fetch("https://habby-api.onrender.com/user", {
             headers: {
                 "auth-token": localStorage.getItem("auth-token"),
             },
@@ -44,7 +44,7 @@ const Profile = () => {
             });
 
         // Fetch order history
-        fetch("http://localhost:3000/api/orders", {
+        fetch("https://habby-api.onrender.com/api/orders", {
             headers: {
                 "auth-token": localStorage.getItem("auth-token"),
             },
@@ -73,7 +73,7 @@ const Profile = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        fetch("http://localhost:3000/profile", {
+        fetch("https://habby-api.onrender.com/profile", {
             method: "PUT",
             headers: {
                 "Content-Type": "application/json",
@@ -93,7 +93,7 @@ const Profile = () => {
         formData.append('image', file);
 
         try {
-            const res = await fetch("http://localhost:3000/profile/image", {
+            const res = await fetch("https://habby-api.onrender.com/profile/image", {
                 method: "PUT",
                 headers: {
                     "auth-token": state.accessToken,
@@ -123,7 +123,7 @@ const Profile = () => {
                 <h2 className="block text-gray-700 text-sm font-bold mb-2">Profile Image</h2>
                 {form.img && (
                     <div className="mb-4">
-                        <img src={`http://localhost:3000/${form.img}`} alt="Profile" className="h-20 w-20 rounded-full" />
+                        <img src={`https://habby-api.onrender.com/${form.img}`} alt="Profile" className="h-20 w-20 rounded-full" />
                     </div>
                 )}
                 <input 
