@@ -9,8 +9,8 @@ import { IoIosAddCircleOutline } from "react-icons/io";
 
 const MenuItem = () => {
     const { id } = useParams();
-    const { menuItems = [], fetchMenuItems, restaurant, addToCart } = useContext(FoodContext);
-    const [state, dispatch] = useContext(AuthContext);
+    const { menuItems = [], fetchMenuItems, restaurant = [], addToCart } = useContext(FoodContext); // Set default values
+    const [state] = useContext(AuthContext);
     const isAuthenticated = state.accessToken !== null;
     const redirect = useNavigate();
 
@@ -21,7 +21,11 @@ const MenuItem = () => {
     };
 
     useEffect(() => {
-        fetchMenuItems(id);
+        if (typeof fetchMenuItems === 'function') {
+            fetchMenuItems(id);
+        } else {
+            console.error("fetchMenuItems is not a function");
+        }
     }, [id, fetchMenuItems]);
 
     const restaurants = restaurant.find(rest => rest._id === id);
@@ -50,10 +54,19 @@ const MenuItem = () => {
                         <div className="flex gap-12 flex-wrap">
                             {categorizedItems[category].map(item => (
                                 <Card key={item._id}>
-                                    <Link to=""><img src={"https://habby-api.onrender.com/" + item.img} alt="" className="h-[200px] w-[200px] mx-auto my-5" /></Link>
+                                    <Link to="">
+                                        <img
+                                            src={"https://habby-api.onrender.com/" + item.img}
+                                            alt=""
+                                            className="h-[200px] w-[200px] mx-auto my-5"
+                                        />
+                                    </Link>
                                     <p className="font-bold pt-2 font-serif">{item.name}</p>
                                     <p className="font-medium">{item.price}</p>
-                                    <button onClick={isAuthenticated ? () => addToCart(item._id) : login} className="text-orange-600 text-2xl p-[10px] rounded mt-[10px]">
+                                    <button
+                                        onClick={isAuthenticated ? () => addToCart(item._id) : login}
+                                        className="text-orange-600 text-2xl p-[10px] rounded mt-[10px]"
+                                    >
                                         <IoIosAddCircleOutline />
                                     </button>
                                 </Card>
