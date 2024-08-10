@@ -34,19 +34,35 @@ export const FoodProvider = ({ children}) => {
         setCartCount(count)
     }, [cartItems])
 
-    useEffect(()=> {
-        const filtered = restaurant.filter((restaurant)=>{
-            const menuItemNames = menuItem
-                .filter((item)=> item.restaurantId === restaurant._id)
-                .map((item) => item.name.toLowerCase())
-            const restaurantName = restaurant.name.toLowerCase()
-            return(
-                restaurantName.includes(searchQuery.toLowerCase()) || 
-                menuItemNames.some((name) => name.includes(searchQuery.toLowerCase()))
-            )
-        })
-        setFilteredRestaurants(filtered)
-    }, [searchQuery, restaurant, menuItem])
+    // useEffect(()=> {
+    //     const filtered = restaurant.filter((restaurant)=>{
+    //         const menuItemNames = menuItem
+    //             .filter((item)=> item.restaurantId === restaurant._id)
+    //             .map((item) => item.name.toLowerCase())
+    //         const restaurantName = restaurant.name.toLowerCase()
+    //         return(
+    //             restaurantName.includes(searchQuery.toLowerCase()) || 
+    //             menuItemNames.some((name) => name.includes(searchQuery.toLowerCase()))
+    //         )
+    //     })
+    //     setFilteredRestaurants(filtered)
+    // }, [searchQuery, restaurant, menuItem])
+
+    useEffect(() => {
+      if (menuItem.length > 0) {
+          const filtered = restaurant.filter((restaurant) => {
+              const menuItemNames = menuItem
+                  .filter((item) => item.restaurantId === restaurant._id)
+                  .map((item) => item.name.toLowerCase());
+              const restaurantName = restaurant.name.toLowerCase();
+              return (
+                  restaurantName.includes(searchQuery.toLowerCase()) ||
+                  menuItemNames.some((name) => name.includes(searchQuery.toLowerCase()))
+              );
+          });
+          setFilteredRestaurants(filtered);
+      }
+  }, [searchQuery, restaurant, menuItem]);
 
 
     const africanDelight = menu.filter((item => item.africanDelight === true));
@@ -66,21 +82,32 @@ export const FoodProvider = ({ children}) => {
         SetLoading(false)
     }
 
+    // const fetchMenuItem = async (restaurantId) => {
+    //     try {
+    //         const response = await fetch(`https://habby-api.onrender.com/api/menuItem/${restaurantId}`)
+    //     const data = await response.json()
+    //     setMenuItem(data)
+    //     if (Array.isArray(data)){
+    //         setMenuItem(data)
+    //     } else {
+    //         setMenuItem([])
+    //     }
+    //     } catch (error) {
+    //         console.error(`error fetching menu items for restaurant ${restaurantId}:`, error)
+    //         setMenuItem([])
+    //     }
+    // }
+
     const fetchMenuItem = async (restaurantId) => {
-        try {
-            const response = await fetch(`https://habby-api.onrender.com/api/menuItem/${restaurantId}`)
-        const data = await response.json()
-        setMenuItem(data)
-        if (Array.isArray(data)){
-            setMenuItem(data)
-        } else {
-            setMenuItem([])
-        }
-        } catch (error) {
-            console.error(`error fetching menu items for restaurant ${restaurantId}:`, error)
-            setMenuItem([])
-        }
-    }
+      try {
+          const response = await fetch(`https://habby-api.onrender.com/api/menuItem/${restaurantId}`);
+          const data = await response.json();
+          setMenuItem(Array.isArray(data) ? data : []);
+      } catch (error) {
+          console.error(`Error fetching menu items for restaurant ${restaurantId}:`, error);
+          setMenuItem([]);
+      }
+  };
 
     const fetchAllMenuItem = async () => {
         try {
@@ -212,31 +239,55 @@ export const FoodProvider = ({ children}) => {
         return itemsTotal + deliveryFee;
       };
 
-      const createOrder = async(transaction_id, orderId)=>{
+      // const createOrder = async(transaction_id, orderId)=>{
+      //   try {
+      //     const response = await fetch("https://habby-api.onrender.com/api/payment/verify", {
+      //       method: "POST",
+      //       headers: {
+      //         "Content-Type": "application/json",
+      //         "auth-token": `${localStorage.getItem("auth-token")}`,
+      //       },
+      //       body: JSON.stringify({transaction_id, orderId}),
+      //       credentials: "include"
+      //   })
+    
+      //   const data = await response.json()
+      //   console.log(data);
+      //   if (res.ok) {
+      //    setOrder(data.order)
+      //    setCartItems([])
+      //   } else {
+      //     console.error(data.msg);
+      //   }
+      //   } catch (error) {
+      //     console.error(error)
+      //   }
+      // }
+
+
+      const createOrder = async (transaction_id, orderId) => {
         try {
-          const response = await fetch("https://habby-api.onrender.com/api/payment/verify", {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-              "auth-token": `${localStorage.getItem("auth-token")}`,
-            },
-            body: JSON.stringify({transaction_id, orderId}),
-            credentials: "include"
-        })
+            const response = await fetch("https://habby-api.onrender.com/api/payment/verify", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "auth-token": `${localStorage.getItem("auth-token")}`,
+                },
+                body: JSON.stringify({ transaction_id, orderId }),
+                credentials: "include",
+            });
     
-        const data = await response.json()
-        console.log(data);
-        if (res.ok) {
-         setOrder(data.order)
-         setCartItems([])
-        } else {
-          console.error(data.msg);
-        }
+            const data = await response.json();
+            if (response.ok) {
+                setOrder(data.order);
+                setCartItems([]);
+            } else {
+                console.error(data.msg);
+            }
         } catch (error) {
-          console.error(error)
+            console.error(error);
         }
-      }
-    
+    };
     
 
 
