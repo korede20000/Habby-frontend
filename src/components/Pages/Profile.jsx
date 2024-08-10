@@ -44,13 +44,21 @@ const Profile = () => {
             });
 
         // Fetch order history
-        fetch("https://habby-api.onrender.com/api/orders", {
-            headers: {
-                "auth-token": localStorage.getItem("auth-token"),
-            },
-        })
-            .then(res => res.json())
-            .then(data => setOrders(data));
+        const fetchOrders = async () => {
+            try {
+                const res = await fetch("http://localhost:3000/api/orders", {
+                    headers: {
+                        "auth-token": localStorage.getItem("auth-token"),
+                    },
+                });
+                const data = await res.json();
+                setOrders(data); // Replace the current orders state with the fetched data
+            } catch (error) {
+                console.error("Error fetching orders:", error);
+            }
+        };
+
+        fetchOrders()
     }, []);
 
     const handleChange = (e) => {
