@@ -24,9 +24,12 @@ const MenuItem = () => {
         if (id) {
             fetchMenuItem(id);
         }
-    }, [id, fetchMenuItem]);
+    }, [id]);
 
     const restaurants = restaurant.find(rest => rest._id === id);
+
+    // Filter menu items for the current restaurant
+    const filteredMenuItems = menuItem.filter(item => item.restaurant === id);
 
     return (
         <div>
@@ -42,8 +45,8 @@ const MenuItem = () => {
                     Explore our Menu
                 </h1>
                 <div className="flex gap-12 flex-wrap">
-                    {Array.isArray(menuItem) && menuItem.length > 0 ? (
-                        menuItem.map((item) => (
+                    {Array.isArray(filteredMenuItems) && filteredMenuItems.length > 0 ? (
+                        filteredMenuItems.map((item) => (
                             <Card key={item._id}>
                                 <Link to="">
                                     <img
@@ -70,6 +73,7 @@ const MenuItem = () => {
             </div>
         </div>
     );
-}
+};
+
 
 export default MenuItem
