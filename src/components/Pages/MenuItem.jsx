@@ -9,7 +9,7 @@ import { IoIosAddCircleOutline } from "react-icons/io";
 
 const MenuItem = () => {
     const { id } = useParams();
-    const { menuItems, fetchMenuItems, restaurant, addToCart } = useContext(FoodContext);
+    const { menuItems = [], fetchMenuItems, restaurant, addToCart } = useContext(FoodContext);
     const [state, dispatch] = useContext(AuthContext);
     const isAuthenticated = state.accessToken !== null;
     const redirect = useNavigate();
