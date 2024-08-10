@@ -46,7 +46,7 @@ const Profile = () => {
         // Fetch order history
         const fetchOrders = async () => {
             try {
-                const res = await fetch("http://localhost:3000/api/orders", {
+                const res = await fetch("https://habby-api.onrender.com/api/orders", {
                     headers: {
                         "auth-token": localStorage.getItem("auth-token"),
                     },
