@@ -50,13 +50,13 @@ const MenuItem = () => {
                             <Card key={item._id}>
                                 <Link to="">
                                     <img
-                                        src={`https://habby-api.onrender.com/${item.img}`}
+                                        src={"https://habby-api.onrender.com/" + item.img}
                                         alt={item.name}
                                         className="h-[200px] w-[200px] mx-auto my-5"
                                     />
                                 </Link>
                                 <p className="font-bold pt-2 font-serif">{item.name}</p>
-                                <p className="font-medium">{item.price}</p>
+                                <p className="font-medium">₦{item.price}</p>
                                 <p className="font-light text-gray-200">{item.description}</p>
                                 <button
                                     onClick={isAuthenticated ? () => addToCart(item._id) : login}
