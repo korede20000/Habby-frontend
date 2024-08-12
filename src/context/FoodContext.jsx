@@ -98,44 +98,32 @@ export const FoodProvider = ({ children}) => {
     //     }
     // }
 
-  //   const fetchMenuItem = async (restaurantId) => {
-  //     try {
-  //         const response = await fetch(`https://habby-api.onrender.com/api/menuItem/${restaurantId}`);
-  //         const data = await response.json();
-  //         setMenuItem(Array.isArray(data) ? data : []);
-  //     } catch (error) {
-  //         console.error(`Error fetching menu items for restaurant ${restaurantId}:`, error);
-  //         setMenuItem([]);
-  //     }
-  // };
+    const fetchMenuItem = async (restaurantId) => {
+      try {
+          const response = await fetch(`https://habby-api.onrender.com/api/menuItem/${restaurantId}`);
+          const data = await response.json();
+          setMenuItem(Array.isArray(data) ? data : []);
+      } catch (error) {
+          console.error(`Error fetching menu items for restaurant ${restaurantId}:`, error);
+          setMenuItem([]);
+      }
+  };
 
-  const fetchMenuItem = async (restaurantId) => {
-    try {
-        const response = await fetch(`https://habby-api.onrender.com/api/menuItem/${restaurantId}`);
-        if (!response.ok) {
-            throw new Error(`Failed to fetch menu items: ${response.statusText}`);
+    const fetchAllMenuItem = async () => {
+        try {
+            const response = await fetch('https://habby-api.onrender.com/api/menuItem')
+            const data = await response.json()
+            // setMenuItem(Array.isArray(data) ? data : [])
+            if (Array.isArray(data)){
+                setMenuItem(data)
+            } else {
+                setMenuItem([])
+            }
+        } catch (error) {
+            console.error('error fetching all menu items:', error)
+            setMenuItem([])
         }
-        const data = await response.json();
-        setMenuItem(Array.isArray(data) ? data : []);
-    } catch (error) {
-        console.error(`Error fetching menu items for restaurant ${restaurantId}:`, error);
-        setMenuItem([]);
     }
-};
-
-const fetchAllMenuItem = async () => {
-    try {
-        const response = await fetch('https://habby-api.onrender.com/api/menuItem');
-        if (!response.ok) {
-            throw new Error(`Failed to fetch all menu items: ${response.statusText}`);
-        }
-        const data = await response.json();
-        setMenuItem(Array.isArray(data) ? data : []);
-    } catch (error) {
-        console.error('Error fetching all menu items:', error);
-        setMenuItem([]);
-    }
-};
 
 
     const addToCart = async (menuItemId) =>{
@@ -278,28 +266,28 @@ const fetchAllMenuItem = async () => {
 
 
       const createOrder = async (transaction_id, orderId) => {
-        try {
-            const response = await fetch("https://habby-api.onrender.com/api/payment/verify", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                    "auth-token": `${localStorage.getItem("auth-token")}`,
-                },
-                body: JSON.stringify({ transaction_id, orderId }),
-                credentials: "include",
-            });
-    
-            const data = await response.json();
-            if (response.ok) {
-                setOrder(data.order);
-                setCartItems([]);
-            } else {
-                console.error(data.msg);
-            }
-        } catch (error) {
-            console.error(error);
+    try {
+        const response = await fetch("https://habby-api.onrender.com/api/payment/verify", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "auth-token": `${localStorage.getItem("auth-token")}`,
+            },
+            body: JSON.stringify({ transaction_id, orderId }),
+            credentials: "include",
+        });
+
+        const data = await response.json();
+        if (response.ok) {
+            setOrder(data.order);
+            setCartItems([]);
+        } else {
+            console.error(data.msg);
         }
-    };
+    } catch (error) {
+        console.error(error);
+    }
+};
     
 
 
