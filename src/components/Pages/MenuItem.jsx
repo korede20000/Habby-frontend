@@ -50,7 +50,7 @@ const MenuItem = () => {
                             <Card key={item._id}>
                                 <Link to="">
                                     <img
-                                        src={"https://habby-api.onrender.com/" + item.img}
+                                        src={`https://habby-api.onrender.com/${item.img}`}
                                         alt={item.name}
                                         className="h-[200px] w-[200px] mx-auto my-5"
                                     />
