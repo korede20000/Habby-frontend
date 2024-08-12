@@ -82,32 +82,32 @@ export const FoodProvider = ({ children}) => {
         SetLoading(false)
     }
 
-    // const fetchMenuItem = async (restaurantId) => {
-    //     try {
-    //         const response = await fetch(`https://habby-api.onrender.com/api/menuItem/${restaurantId}`)
-    //     const data = await response.json()
-    //     setMenuItem(data)
-    //     if (Array.isArray(data)){
-    //         setMenuItem(data)
-    //     } else {
-    //         setMenuItem([])
-    //     }
-    //     } catch (error) {
-    //         console.error(`error fetching menu items for restaurant ${restaurantId}:`, error)
-    //         setMenuItem([])
-    //     }
-    // }
-
     const fetchMenuItem = async (restaurantId) => {
-      try {
-          const response = await fetch(`https://habby-api.onrender.com/api/menuItem/${restaurantId}`);
-          const data = await response.json();
-          setMenuItem(Array.isArray(data) ? data : []);
-      } catch (error) {
-          console.error(`Error fetching menu items for restaurant ${restaurantId}:`, error);
-          setMenuItem([]);
-      }
-  };
+        try {
+            const response = await fetch(`https://habby-api.onrender.com/api/menuItem/${restaurantId}`)
+        const data = await response.json()
+        setMenuItem(data)
+        if (Array.isArray(data)){
+            setMenuItem(data)
+        } else {
+            setMenuItem([])
+        }
+        } catch (error) {
+            console.error(`error fetching menu items for restaurant ${restaurantId}:`, error)
+            setMenuItem([])
+        }
+    }
+
+  //   const fetchMenuItem = async (restaurantId) => {
+  //     try {
+  //         const response = await fetch(`https://habby-api.onrender.com/api/menuItem/${restaurantId}`);
+  //         const data = await response.json();
+  //         setMenuItem(Array.isArray(data) ? data : []);
+  //     } catch (error) {
+  //         console.error(`Error fetching menu items for restaurant ${restaurantId}:`, error);
+  //         setMenuItem([]);
+  //     }
+  // };
 
     const fetchAllMenuItem = async () => {
         try {
