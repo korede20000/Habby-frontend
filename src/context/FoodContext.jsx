@@ -112,33 +112,30 @@ export const FoodProvider = ({ children}) => {
   const fetchMenuItem = async (restaurantId) => {
     try {
         const response = await fetch(`https://habby-api.onrender.com/api/menuItem/${restaurantId}`);
-        const data = await response.json();
-        if (Array.isArray(data)) {
-            setMenuItem(data);
-        } else {
-            setMenuItem([]); // Clear the state if the response is not as expected
+        if (!response.ok) {
+            throw new Error(`Failed to fetch menu items: ${response.statusText}`);
         }
+        const data = await response.json();
+        setMenuItem(Array.isArray(data) ? data : []);
     } catch (error) {
         console.error(`Error fetching menu items for restaurant ${restaurantId}:`, error);
-        setMenuItem([]); // Clear the state in case of an error
+        setMenuItem([]);
     }
 };
 
-    const fetchAllMenuItem = async () => {
-        try {
-            const response = await fetch('https://habby-api.onrender.com/api/menuItem')
-            const data = await response.json()
-            // setMenuItem(Array.isArray(data) ? data : [])
-            if (Array.isArray(data)){
-                setMenuItem(data)
-            } else {
-                setMenuItem([])
-            }
-        } catch (error) {
-            console.error('error fetching all menu items:', error)
-            setMenuItem([])
+const fetchAllMenuItem = async () => {
+    try {
+        const response = await fetch('https://habby-api.onrender.com/api/menuItem');
+        if (!response.ok) {
+            throw new Error(`Failed to fetch all menu items: ${response.statusText}`);
         }
+        const data = await response.json();
+        setMenuItem(Array.isArray(data) ? data : []);
+    } catch (error) {
+        console.error('Error fetching all menu items:', error);
+        setMenuItem([]);
     }
+};
 
 
     const addToCart = async (menuItemId) =>{
