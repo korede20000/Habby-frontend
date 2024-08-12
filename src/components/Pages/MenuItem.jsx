@@ -12,11 +12,11 @@ const MenuItem = () => {
     const { menuItem, fetchMenuItem, restaurant, addToCart } = useContext(FoodContext);
     const [state] = useContext(AuthContext);
     const isAuthenticated = state.accessToken !== null;
-    const redirect = useNavigate();
+    const navigate = useNavigate();
 
     const login = () => {
         if (!isAuthenticated) {
-            redirect("/login");
+            navigate("/login");
         }
     };
 
@@ -24,21 +24,25 @@ const MenuItem = () => {
         if (id) {
             fetchMenuItem(id);
         }
-    }, [id]);
+    }, [id, fetchMenuItem]);
 
-    const restaurants = restaurant.find(rest => rest._id === id);
+    const restaurants = useMemo(() => restaurant.find(rest => rest._id === id), [restaurant, id]);
 
-    // Filter menu items for the current restaurant
-    const filteredMenuItems = menuItem.filter(item => item.restaurant === id);
+    const filteredMenuItems = useMemo(() => 
+        menuItem.filter(item => item.restaurant === id), 
+        [menuItem, id]
+    );
 
     return (
         <div>
-            {restaurants && (
+            {restaurants ? (
                 <div>
                     <h2 className="text-orange-600 text-2xl font-serif ml-10 my-10">
                         {restaurants.name} Menu Items
                     </h2>
                 </div>
+            ) : (
+                <p className="text-gray-500">Restaurant not found</p>
             )}
             <div className="my-[40px] mx-[95px]">
                 <h1 className="mb-[10px] text-orange-600 font-bold font-serif text-2xl text-center">
