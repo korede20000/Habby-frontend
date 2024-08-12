@@ -51,7 +51,7 @@ const MenuItem = () => {
           {Array.isArray(menuItem) ? (
             menuItem.map((item) => (
               <Card key={item._id}>
-                    <Link to="" ><img src={"http://localhost:3000/" + item.img} alt="" className="h-[200px] w-[200px] mx-auto my-5"/></Link>
+                    <Link to="" ><img src={"https://habby-api.onrender.com/" + item.img} alt="" className="h-[200px] w-[200px] mx-auto my-5"/></Link>
                     <p className="font-bold pt-2 font-serif">{item.name}</p>
                     {/* <p className="font-medium">{item.description}</p> */}
                     <p className="font-medium">{item.price}</p>
