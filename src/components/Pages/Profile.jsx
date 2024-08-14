@@ -130,7 +130,7 @@ const Profile = () => {
             <div className="mb-4">
                 <h2 className="block text-gray-700 text-sm font-bold mb-2">Profile Image</h2>
                 {form.img && (
-                    <div className="mb-4">
+                    <div className="mb-4 mx-auto">
                         <img src={`https://habby-api.onrender.com/${form.img}`} alt="Profile" className="h-20 w-20 rounded-full" />
                     </div>
                 )}
