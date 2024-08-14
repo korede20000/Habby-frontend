@@ -73,16 +73,17 @@ const Header = () => {
           <h6 className="lg:text-4xl text-2xl text-orange-600 font-serif pt-5">HABBY</h6>
           <a className="text-orange-600 lg:text-3xl text-2xl pt-7" href=""><FaShippingFast /></a>
         </div>
-        <div className="flex lg:pl-[74%] pl-[20%] md:pl-[50%] py-8">
-          <Link className="text-orange-600 text-4xl" to="/cart"><IoFastFoodOutline />
-            <div className="absolute lg:top-3 top-2 lg:right-40 text-center text-sm text-black font-semibold h-5 w-5 py-[2px] rounded-full outline outline-2 outline-orange-600">
-              {cartCount}
-            </div>
+        <div className="flex justify-center items-center py-8">
+          <Link className="relative text-orange-600 text-4xl" to="/cart">
+              <IoFastFoodOutline />
+              <div className="absolute top-0 right-0 transform translate-x-1/2 -translate-y-1/2 text-center text-sm text-black font-semibold h-5 w-5 rounded-full outline outline-2 outline-orange-600 bg-white">
+                  {cartCount}
+              </div>
           </Link>
         </div>
         <div className="text-[15px] font-medium flex items-center gap-2 overflow-auto">
         {user && user.img && (
-            <Link to="/profile"><img src={`https://habby-api.onrender.com/${user?.img}`} alt="" className="h-7 outline-1 w-7 rounded-full ml-5" /></Link>
+            <Link to="/profile"><img src={`https://habby-api.onrender.com/${user?.img}`} alt="" className="h-7 outline-1 w-7 rounded-full lg:ml-5 ml-0" /></Link>
         )}
           
           <p className="pl-7 lg:pl-0">Hi, {user?.firstName}!</p>
@@ -113,7 +114,6 @@ const Header = () => {
             <a href="#about">About us</a>
             <a>Locations</a>
             <a href="#contact">Contact</a>
-            <Link to="/login">Login</Link>
             <Link onClick={logout}>Logout</Link>
           </div>
         </div>

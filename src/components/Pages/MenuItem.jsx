@@ -62,7 +62,7 @@ const MenuItem = () => {
                                     onClick={isAuthenticated ? () => addToCart(item._id) : login}
                                     className="text-orange-600 text-2xl p-[10px] rounded mt-[10px]"
                                 >
-                                    <IoIosAddCircleOutline />
+                                    <IoIosAddCircleOutline/>
                                 </button>
                             </Card>
                         ))
