@@ -92,7 +92,7 @@ const Header = () => {
           
           <p className="pl-3 lg:pl-0">Hi, {user?.firstName}!</p>
         </div>
-        <Link className="outline outline-1 rounded-md ml-3 px-2 py-2 text-center font-medium text-white" onClick={logout}>Logout</Link>
+        <Link className="outline outline-1 rounded-md ml-3 px-2 py-2 text-center font-medium text-white bg-black" onClick={logout}>Logout</Link>
       </nav>
 
       <div className="hidden lg:flex px-[10%] py-1 hover:cursor-pointer space-x-11 lg:font-mono font-semibold text-black hover:scale-105 duration-200">
@@ -100,7 +100,6 @@ const Header = () => {
         <Link to="/menu" className="">Menu</Link>
         <Link to="/restaurant">Restaurants</Link>
         <a href="#about">About us</a>
-        <a>Locations</a>
         <a href="#contact">Contact</a>
       </div>
 
@@ -116,7 +115,6 @@ const Header = () => {
             <Link to="/menu" className="">Menu</Link>
             <Link to="/restaurant">Restaurants</Link>
             <a href="#about">About us</a>
-            <a>Locations</a>
             <a href="#contact">Contact</a>
             <Link onClick={logout}>Logout</Link>
           </div>
