@@ -82,14 +82,6 @@ function Login() {
             Submit
           </button>
         </div>
-        <div className="text-center mt-4">
-          <p className="text-gray-700">
-            Dont have an account?{" "}
-            <Link to="/login" className="text-blue-600 hover:underline">
-              Login here
-            </Link>.
-          </p>
-        </div>
       </form>
     </div>
   </div>
