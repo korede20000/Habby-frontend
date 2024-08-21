@@ -2,6 +2,7 @@ import { useState } from "react"
 import { useNavigate}  from 'react-router-dom'
 import { useContext } from "react"
 import FoodContext from "../../context/FoodContext"
+import { Link } from "react-router-dom";
 
 const Register = () => {
   const [firstName, setFirstName] = useState("");
@@ -29,7 +30,7 @@ const Register = () => {
         showAndHide("error", "Passwords do not match");
         return;
     }
-    
+
     try {
         const res = await fetch("https://habby-api.onrender.com/register", {
             method: "POST",
@@ -153,6 +154,9 @@ const Register = () => {
                   <button className="bg-orange-600 text-white py-2 px-4 rounded-full font-bold hover:bg-orange-700" type="submit">
                       Sign Up
                   </button>
+              </div>
+              <div>
+                <Link to="/login"><p>Already have an account? <span >login</span></p></Link>
               </div>
           </form>
       </div>
