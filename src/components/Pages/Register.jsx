@@ -17,40 +17,57 @@ const Register = () => {
   const navigate = useNavigate();
 
   const registerHandler = async (e) => {
-      e.preventDefault();
-      try {
-          const res = await fetch("https://habby-api.onrender.com/register", {
-              method: "POST",
-              headers: {
-                  "Content-Type": "application/json",
-              },
-              body: JSON.stringify({
-                  firstName,
-                  lastName,
-                  email,
-                  phone,
-                  street,
-                  city,
-                  password,
-                  confirmPassword
-              }),
-          });
+    e.preventDefault();
 
-          const data = await res.json();
-          if(data === 'exist') {
-              showAndHide("error", "User Already Exist");
-          } else if (data === "invalid Password") {
-              showAndHide("error", "Password must be 8 characters long and must contain one number and one letter");
-          } else if (data === "no match") {
-              showAndHide("error", "Passwords do not match");
-          } else {
-              navigate("/login");
-              showAndHide("success", "Registration successful!!!");
-          }
-      } catch (error) {
-          console.log("error", error);
-      }
-  };
+    // Basic Validation: Check for empty fields
+    if (!firstName || !lastName || !email || !phone || !street || !city || !password || !confirmPassword) {
+        showAndHide("error", "Please fill in all the fields");
+        return;
+    }
+
+    // Password and Confirm Password validation
+    if (password !== confirmPassword) {
+        showAndHide("error", "Passwords do not match");
+        return;
+    }
+
+    // Optional: Add more specific validation rules for email, phone, etc.
+    // For example, you could check if the email is valid, if the phone number is in the correct format, etc.
+
+    try {
+        const res = await fetch("https://habby-api.onrender.com/register", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                firstName, 
+                lastName,
+                email,
+                phone,
+                street, 
+                city,
+                password,
+                confirmPassword
+            }),
+        });
+
+        const data = await res.json();
+
+        if (data === 'exist') {
+            showAndHide("error", "User Already Exists");
+        } else if (data === "invalid Password") {
+            showAndHide("error", "Password must be 8 characters long and contain one number and one letter");
+        } else if (data === "no match") {
+            showAndHide("error", "Passwords do not match");
+        } else {
+            navigate("/login");
+            showAndHide("success", "Registration successful!!!");
+        }
+    } catch (error) {
+        console.log("error", error);
+    }
+};
 
   return (
       <div className="flex justify-center items-center min-h-screen bg-gray-100">

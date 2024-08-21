@@ -22,7 +22,7 @@ export const FoodProvider = ({ children}) => {
 
     useEffect(() => {
         fetchMenu() 
-        fetchRestaurant()
+        fetchRestaurant() 
         fetchMenuItem()
         fetchAllMenuItem()
         fetchCart()
@@ -85,7 +85,7 @@ export const FoodProvider = ({ children}) => {
 
   //   const fetchMenuItem = async (restaurantId) => {
   //     try {
-  //         const response = await fetch(`https://habby-api.onrender.com/api/menuItem/${restaurantId}`);
+  //         const response = await fetch(`https://habby-api.onrender.com/api/menu Item/${restaurantId}`);
   //         const data = await response.json();
   //         setMenuItem(Array.isArray(data) ? data : []);
   //     } catch (error) {
@@ -102,7 +102,7 @@ export const FoodProvider = ({ children}) => {
     setMenuItem(data)
     if (Array.isArray(data)){
         setMenuItem(data)
-    } else {
+    } else { v  
         setMenuItem([])
     }
     } catch (error) {
