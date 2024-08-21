@@ -19,7 +19,6 @@ const Register = () => {
   const registerHandler = async (e) => {
     e.preventDefault();
 
-    // Basic Validation: Check for empty fields
     if (!firstName || !lastName || !email || !phone || !street || !city || !password || !confirmPassword) {
         showAndHide("error", "Please fill in all the fields");
         return;
@@ -30,10 +29,7 @@ const Register = () => {
         showAndHide("error", "Passwords do not match");
         return;
     }
-
-    // Optional: Add more specific validation rules for email, phone, etc.
-    // For example, you could check if the email is valid, if the phone number is in the correct format, etc.
-
+    
     try {
         const res = await fetch("https://habby-api.onrender.com/register", {
             method: "POST",

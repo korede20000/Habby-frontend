@@ -27,11 +27,12 @@ const Header = () => {
     <header className="px-4 bg-white ">
       <nav className="flex bg-white">
         <div className="flex text-black">
-          <h6 className="text-4xl text-orange-600 font-serif pt-5">HABBY</h6>
+          <Link to="/"><h6 className="text-4xl text-orange-600 font-serif pt-5">HABBY</h6></Link>
           <a className="text-orange-600 text-3xl pt-7" href=""><FaShippingFast /></a>
         </div>
         <div className="flex pl-[50%] lg:pl-[72%] lg:py-8 py-5 space-x-5 ">
           <Link to="/register" className="outline outline-1 rounded-md px-2 py-2 text-white bg-black">Sign up</Link>
+          <Link to="/login" className="outline outline-1 rounded-md px-2 py-2 text-white bg-black">Login</Link>
         </div>
       </nav>
 
@@ -42,7 +43,6 @@ const Header = () => {
         <a href="#about">About us</a>
         <a>Locations</a>
         <a href="#contact">Contact</a>
-        <Link to="/login" className="">Login</Link>
       </div>
 
       <button onClick={() => setOpen(!open)} 
@@ -88,6 +88,7 @@ const Header = () => {
           
           <p className="pl-3 lg:pl-0">Hi, {user?.firstName}!</p>
         </div>
+        <Link className="outline outline-1 rounded-md px-2 py-2 text-white bg-black" onClick={logout}>Logout</Link>
       </nav>
 
       <div className="hidden lg:flex px-[10%] py-1 hover:cursor-pointer space-x-11 lg:font-mono font-semibold text-black hover:scale-105 duration-200">
@@ -97,7 +98,6 @@ const Header = () => {
         <a href="#about">About us</a>
         <a>Locations</a>
         <a href="#contact">Contact</a>
-        <Link onClick={logout}>Logout</Link>
       </div>
 
       <button onClick={() => setOpen(!open)}
