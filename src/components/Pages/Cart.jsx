@@ -7,9 +7,9 @@ import {Navigate} from "react-router-dom"
 const Cart = () => {
     const {cartItems, updateQuantity, totalAmount, deleteItems, calculateDeliveryFee, isAuthenticated} = useContext(FoodContext);
 
-    // if(!isAuthenticated) {
-    //     return <Navigate to="/login"/>
-    // }
+    if(!isAuthenticated) {
+        return <Navigate to="/login"/>
+    }
 
   const cartTable=(
     <>
