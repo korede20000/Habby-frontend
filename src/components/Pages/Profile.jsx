@@ -19,9 +19,9 @@ const Profile = () => {
     const redirect = useNavigate();
     const fileInputRef = useRef(null);
 
-    // if (!isAuthenticated) {
-    //     return <Navigate to="/login"/>
-    // }
+    if (!isAuthenticated) {
+        return <Navigate to="/login"/>
+    }
 
     useEffect(() => {
         // Fetch user profile
