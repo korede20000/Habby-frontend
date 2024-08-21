@@ -82,8 +82,13 @@ function Login() {
             Submit
           </button>
         </div>
-        <div>
-            <Link to="/register"><p>Dont have an account? <span >register</span></p></Link>
+        <div className="text-center mt-4">
+          <p className="text-gray-700">
+            Dont have an account?{" "}
+            <Link to="/login" className="text-blue-600 hover:underline">
+              Login here
+            </Link>.
+          </p>
         </div>
       </form>
     </div>

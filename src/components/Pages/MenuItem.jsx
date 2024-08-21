@@ -57,7 +57,7 @@ const MenuItem = () => {
                                 </Link>
                                 <p className="font-bold pt-2 font-serif">{item.name}</p>
                                 <p className="font-medium">₦{item.price}</p>
-                                <p className="font-light text-gray-200">{item.description}</p>
+                                <p className="font-light text-gray-600">{item.description}</p>
                                 <button
                                     onClick={isAuthenticated ? () => addToCart(item._id) : login}
                                     className="text-orange-600 text-2xl p-[10px] rounded mt-[10px]"
