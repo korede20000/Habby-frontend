@@ -16,9 +16,9 @@ function Login() {
 
   const isAuthenticated = state.accessToken !== null;
 
-  // if(isAuthenticated) {
-  //   return <Navigate to="/"/>
-  // }
+  if(!isAuthenticated) {
+    return <Navigate to="/login"/>
+  }
 
   const redirect = useNavigate()
 
