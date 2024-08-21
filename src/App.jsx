@@ -18,6 +18,7 @@ import { AuthProvider } from "./context/AuthContext"
 import useLocalStorage from "./hooks/useLocalStorage"
 import Checkout from "./components/Pages/Checkout"
 import ThankYou from "./components/Pages/thankYou"
+import NotFound from "./components/Pages/NotFound"
 
 function App() {
   const {getItem} = useLocalStorage("auth-token")
@@ -52,6 +53,7 @@ function App() {
             <Route path="/checkout" element={<Checkout/>}/>
             <Route path="/thankYou" element={<ThankYou/>}/>
             <Route path="/profile" element={<Profile/>}/>
+            <Route path="*" element={<NotFound />} /> {/* 404 Page Route */}
           </Routes>
           <Footer/>       
         </Router>

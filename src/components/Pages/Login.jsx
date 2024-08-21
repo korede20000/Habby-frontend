@@ -4,6 +4,7 @@ import AuthContext from "../../context/AuthContext"
 import FoodContext from "../../context/FoodContext"
 import useLocalStorage from "../../hooks/useLocalStorage"
 import {Navigate} from "react-router-dom"
+import { Link } from "react-router-dom";
 
 function Login() {
     
@@ -81,6 +82,9 @@ function Login() {
           >
             Submit
           </button>
+        </div>
+        <div className="mt-4 text-center">
+          <p className="text-gray-700">Don't have an account? <Link to="/register" className="text-blue-600 font-semibold">Register here</Link></p>
         </div>
       </form>
     </div>
