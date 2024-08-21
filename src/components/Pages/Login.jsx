@@ -16,7 +16,7 @@ function Login() {
 
   const isAuthenticated = state.accessToken !== null;
 
-  if(!isAuthenticated) {
+  if(isAuthenticated) {
     return <Navigate to="/"/>
   }
 
