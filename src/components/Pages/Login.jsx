@@ -27,33 +27,36 @@ function Login() {
     setLoading(true);
 
     try {
-      const res = await fetch("https://habby-api.onrender.com/login", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ email, password }),
-      });
+        const res = await fetch("https://habby-api.onrender.com/login", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ email, password }),
+        });
 
-      const data = await res.json();
-      setLoading(false);
+        const data = await res.json();
+        setLoading(false);
 
-      if (data === "Invalid Email/Password") {
-        showAndHide("error", "Invalid Email/Password");
-      } else if (data === "Email Not Verified") {
-        showAndHide("error", "Please verify your email before logging in.");
-      } else {
-        dispatch({ type: "setToken", payload: data.token });
-        setItem(data.token);
-        redirect("/");
-        showAndHide("success", "Login Successful!!!");
-      }
+        if (data.message === "Invalid Email/Password") {
+            showAndHide("error", "Invalid Email/Password");
+        } else if (data.message === "Please verify your email before logging in.") {
+            showAndHide("error", "Please verify your email before logging in.");
+        } else if (data.token) {
+            dispatch({ type: "setToken", payload: data.token });
+            setItem(data.token);
+            redirect("/");
+            showAndHide("success", "Login Successful!!!");
+        } else {
+            showAndHide("error", "An unexpected error occurred. Please try again.");
+        }
     } catch (error) {
-      setLoading(false);
-      console.error(error);
-      showAndHide("error", "An error occurred. Please try again.");
+        setLoading(false);
+        console.error(error);
+        showAndHide("error", "An error occurred. Please try again.");
     }
-  };
+};
+
 
   return (
     <div className="flex justify-center items-center min-h-screen bg-gray-100">

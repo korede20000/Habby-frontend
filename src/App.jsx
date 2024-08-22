@@ -19,6 +19,7 @@ import useLocalStorage from "./hooks/useLocalStorage"
 import Checkout from "./components/Pages/Checkout"
 import ThankYou from "./components/Pages/thankYou"
 import NotFound from "./components/Pages/NotFound"
+import VerifyEmail from "./components/Pages/VerifyEmail"
 
 function App() {
   const {getItem} = useLocalStorage("auth-token")
@@ -54,6 +55,8 @@ function App() {
             <Route path="/thankYou" element={<ThankYou/>}/>
             <Route path="/profile" element={<Profile/>}/>
             <Route path="*" element={<NotFound />} /> {/* 404 Page Route */}
+            <Route path="/verify-email" element={<VerifyEmail />} />
+
           </Routes>
           <Footer/>       
         </Router>

@@ -13,7 +13,6 @@ const Register = () => {
     const [city, setCity] = useState("");
     const [password, setPassword] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("");
-    const [isRegistered, setIsRegistered] = useState(false);
     const { showAndHide } = useContext(FoodContext);
     
     const navigate = useNavigate();
@@ -54,29 +53,22 @@ const Register = () => {
     
             if (data === 'User already exists') {
                 showAndHide("error", "User already exists");
-            } else if (data === "Password must be at least 8 characters long and contain one number and one letter") {
+            } else if (data === "Password must be at least 8 characters long and contain one number and one alphabet") {
                 showAndHide("error", "Password must meet the requirements");
             } else if (data === "Passwords do not match") {
                 showAndHide("error", "Passwords do not match");
+            } else if (data.message === "Registration successful, please check your email for verification link") {
+                showAndHide("success", "Registration successful! Please check your email to verify your account.");
+                navigate("/login");
             } else {
-                setIsRegistered(true);
+                showAndHide("error", "An error occurred during registration");
             }
         } catch (error) {
             console.log("error", error);
+            showAndHide("error", "An error occurred during registration");
         }
     };
     
-    if (isRegistered) {
-        return (
-            <div className="flex justify-center items-center min-h-screen bg-gray-100">
-                <div className="w-full max-w-md my-10 bg-white shadow-md rounded-lg p-8 text-center">
-                    <h2 className="text-2xl font-bold text-orange-600 mb-6">Thank You for Registering!</h2>
-                    <p className="text-gray-700">A verification email has been sent to {email}. Please check your inbox and click on the verification link to activate your account.</p>
-                    <p className="text-gray-700 mt-4">After verification, you can <a href="/login" className="text-blue-600 hover:underline">login here</a>.</p>
-                </div>
-            </div>
-        );
-    }
     
     return (
         <div className="flex justify-center items-center min-h-screen bg-gray-100">
