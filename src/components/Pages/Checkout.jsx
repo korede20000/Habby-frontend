@@ -4,11 +4,11 @@ import {Navigate} from "react-router-dom"
 
 const Checkout = () => {
 
-  const { cartItems, totalAmount , isauthenticated} = useContext(FoodContext);
+  const { cartItems, totalAmount , isAuthenticated} = useContext(FoodContext);
 
-  if(!isauthenticated){
+  if(!isAuthenticated) {
     return <Navigate to="/login"/>
-  }
+}
 
 
   const total = totalAmount();
