@@ -17,9 +17,11 @@ const Register = () => {
     
     const navigate = useNavigate();
     
+    
     const registerHandler = async (e) => {
         e.preventDefault();
     
+        // Basic validation
         if (!firstName || !lastName || !email || !phone || !street || !city || !password || !confirmPassword) {
             showAndHide("error", "Please fill in all the fields");
             return;
@@ -42,8 +44,7 @@ const Register = () => {
                     lastName,
                     email,
                     phone,
-                    street, 
-                    city,
+                    addresses: [{ street, city }], // Adjusted to match the backend structure
                     password,
                     confirmPassword
                 }),
@@ -51,14 +52,10 @@ const Register = () => {
     
             const data = await res.json();
     
-            if (data === 'User already exists') {
-                showAndHide("error", "User already exists");
-            } else if (data === "Password must be at least 8 characters long and contain one number and one alphabet") {
-                showAndHide("error", "Password must meet the requirements");
-            } else if (data === "Passwords do not match") {
-                showAndHide("error", "Passwords do not match");
-            } else if (data.message === "Registration successful, please check your email for verification link") {
-                showAndHide("success", "Registration successful! Please check your email to verify your account.");
+            if (res.status === 400) {
+                showAndHide("error", data); // Displaying error message received from backend
+            } else if (res.status === 200 && data.message === "Registration successful, please check your email for verification link") {
+                showAndHide("success", data.message);
                 navigate("/login");
             } else {
                 showAndHide("error", "An error occurred during registration");
@@ -68,7 +65,6 @@ const Register = () => {
             showAndHide("error", "An error occurred during registration");
         }
     };
-    
     
     return (
         <div className="flex justify-center items-center min-h-screen bg-gray-100">

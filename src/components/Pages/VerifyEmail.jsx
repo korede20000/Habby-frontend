@@ -10,7 +10,7 @@ const VerifyEmail = () => {
     useEffect(() => {
         const verifyEmail = async () => {
             try {
-                const res = await fetch(`https://habby-api.onrender.com/api/verify-email?token=${token}`);
+                const res = await fetch(`https://habby-api.onrender.com/verify-email?token=${token}`);
                 const data = await res.json();
 
                 if (data === "Email verified successfully") {
