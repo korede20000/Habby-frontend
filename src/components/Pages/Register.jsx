@@ -2,7 +2,6 @@ import { useState } from "react"
 import { useNavigate}  from 'react-router-dom'
 import { useContext } from "react"
 import FoodContext from "../../context/FoodContext"
-import { Link } from "react-router-dom";
 
 const Register = () => {
     const [firstName, setFirstName] = useState("");
@@ -24,6 +23,11 @@ const Register = () => {
         // Basic validation
         if (!firstName || !lastName || !email || !phone || !street || !city || !password || !confirmPassword) {
             showAndHide("error", "Please fill in all the fields");
+            return;
+        }
+
+        if (!validatePassword(password)) {
+            showAndHide("error", "Password must be at least 8 characters long and contain one number and one alphabet");
             return;
         }
     
