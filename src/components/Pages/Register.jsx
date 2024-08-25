@@ -25,11 +25,6 @@ const Register = () => {
             showAndHide("error", "Please fill in all the fields");
             return;
         }
-
-        if (!validatePassword(password)) {
-            showAndHide("error", "Password must be at least 8 characters long and contain one number and one alphabet");
-            return;
-        }
     
         // Password and Confirm Password validation
         if (password !== confirmPassword) {
