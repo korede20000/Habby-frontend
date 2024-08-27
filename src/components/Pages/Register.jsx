@@ -18,52 +18,58 @@ const Register = () => {
     
     
     const registerHandler = async (e) => {
-        e.preventDefault();
-    
-        // Basic validation
-        if (!firstName || !lastName || !email || !phone || !street || !city || !password || !confirmPassword) {
-            showAndHide("error", "Please fill in all the fields");
-            return;
-        }
-    
-        // Password and Confirm Password validation
-        if (password !== confirmPassword) {
+    e.preventDefault();
+
+    // Basic Validation: Check for empty fields
+    if (!firstName || !lastName || !email || !phone || !street || !city || !password || !confirmPassword) {
+        showAndHide("error", "Please fill in all the fields");
+        return;
+    }
+
+    // Password and Confirm Password validation
+    if (password !== confirmPassword) {
+        showAndHide("error", "Passwords do not match");
+        return;
+    }
+
+    // Optional: Add more specific validation rules for email, phone, etc.
+    // For example, you could check if the email is valid, if the phone number is in the correct format, etc.
+
+    try {
+        const res = await fetch("https://habby-api.onrender.com/register", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                firstName, 
+                lastName,
+                email,
+                phone,
+                street, 
+                city,
+                password,
+                confirmPassword
+            }),
+        });
+
+        const data = await res.json();
+
+        if (data === 'exist') {
+            showAndHide("error", "User Already Exists");
+        } else if (data === "invalid Password") {
+            showAndHide("error", "Password must be 8 characters long and contain one number and one letter");
+        } else if (data === "no match") {
             showAndHide("error", "Passwords do not match");
-            return;
+        } else {
+            navigate("/login");
+            showAndHide("success", "Registration successful, please check your email for verification link");
         }
-    
-        try {
-            const res = await fetch("https://habby-api.onrender.com/register", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify({
-                    firstName, 
-                    lastName,
-                    email,
-                    phone,
-                    addresses: [{ street, city }], // Adjusted to match the backend structure
-                    password,
-                    confirmPassword
-                }),
-            });
-    
-            const data = await res.json();
-    
-            if (res.status >= 400 && res.status < 500) {
-                showAndHide("error", data.message || "An error occurred during registration");
-            } else if (res.status === 200) {
-                showAndHide("success", data.message);
-                navigate("/verify-email");
-            } else {
-                showAndHide("error", "An unexpected error occurred during registration");
-            }
-        } catch (error) {
-            console.error("Error during registration:", error);
-            showAndHide("error", "An error occurred during registration. Please try again later.");
-        }
-    };
+    } catch (error) {
+        console.log("error", error);
+    }
+};
+
     
     return (
         <div className="flex justify-center items-center min-h-screen bg-gray-100">
