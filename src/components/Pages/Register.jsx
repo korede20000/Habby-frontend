@@ -51,11 +51,15 @@ const Register = () => {
     
             const data = await res.json();
     
+            // Debugging: Log the response
+            console.log("Response status:", res.status);
+            console.log("Response data:", data);
+    
             if (res.status >= 400 && res.status < 500) {
                 showAndHide("error", data.message || "An error occurred during registration");
-            } else if (res.status === 201) {
+            } else if (res.status === 200) {
                 showAndHide("success", data.message);
-                navigate("/verify-email");
+                navigate("/verify-email");  // Redirect to the email verification page
             } else {
                 showAndHide("error", "An unexpected error occurred during registration");
             }
@@ -64,6 +68,7 @@ const Register = () => {
             showAndHide("error", "An error occurred during registration. Please try again later.");
         }
     };
+    
     
     return (
         <div className="flex justify-center items-center min-h-screen bg-gray-100">
