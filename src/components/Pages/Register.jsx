@@ -43,30 +43,27 @@ const Register = () => {
                     lastName,
                     email,
                     phone,
-                    addresses: [{ street, city }], 
+                    addresses: [{ street, city }], // Adjusted to match the backend structure
                     password,
                     confirmPassword
                 }),
             });
-        
+    
             const data = await res.json();
-        
-            console.log("Response status:", res.status);  // Log status code
-            console.log("Response data:", data);  // Log response body
-        
-            if (res.status === 400) {
-                showAndHide("error", data.message || "Bad request. Please check the input.");
-            } else if (res.status === 500) {
-                showAndHide("error", "Internal server error. Please try again later.");
+    
+            if (res.status >= 400 && res.status < 500) {
+                showAndHide("error", data.message || "An error occurred during registration");
             } else if (res.status === 200) {
                 showAndHide("success", data.message);
                 navigate("/verify-email");
+            } else {
+                showAndHide("error", "An unexpected error occurred during registration");
             }
         } catch (error) {
             console.error("Error during registration:", error);
             showAndHide("error", "An error occurred during registration. Please try again later.");
         }
-    }
+    };
     
     return (
         <div className="flex justify-center items-center min-h-screen bg-gray-100">
