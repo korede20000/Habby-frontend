@@ -53,7 +53,7 @@ const Register = () => {
     
             if (res.status >= 400 && res.status < 500) {
                 showAndHide("error", data.message || "An error occurred during registration");
-            } else if (res.status === 200) {
+            } else if (res.status === 201) {
                 showAndHide("success", data.message);
                 navigate("/verify-email");
             } else {
