@@ -55,7 +55,7 @@ const Register = () => {
                 showAndHide("error", data.message || "An error occurred during registration");
             } else if (res.status === 200) {
                 showAndHide("success", data.message);
-                navigate("/login");
+                navigate("/verify-email");
             } else {
                 showAndHide("error", "An unexpected error occurred during registration");
             }
