@@ -52,9 +52,9 @@ const Register = () => {
 
             if (res.status >= 400 && res.status < 500) {
                 showAndHide("error", data.message || "An error occurred during registration");
-            } else if (res.status === 201) { // Adjusted to match the success status code from the backend
+            } else if (res.status === 201) { 
                 showAndHide("success", data.message);
-                navigate("/verify-email");
+                navigate("/login");
             } else {
                 showAndHide("error", "An unexpected error occurred during registration");
             }
