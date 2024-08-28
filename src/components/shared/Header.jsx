@@ -71,10 +71,14 @@ const Header = () => {
   const showAuthHeader = (
     <header className="px-4 bg-white ">
       <nav className="flex bg-white">
-        <div className="flex text-black">
-          <h6 className="lg:text-4xl text-2xl text-orange-600 font-serif pt-5">HABBY</h6>
-          <a className="text-orange-600 lg:text-3xl text-2xl pt-7" href=""><FaShippingFast /></a>
-        </div>
+      <div className="flex text-black">
+        <Link to="/">
+          <h6 className="text-4xl text-orange-600 font-serif pt-5">HABBY</h6>
+        </Link>
+        <Link to="/" className="text-orange-600 text-3xl pt-7">
+          <FaShippingFast />
+        </Link>
+      </div>
         <div className="flex lg:flex lg:pl-[65%] pl-[18%] md:pl-[50%] py-8">
           <Link className="relative text-orange-600 text-4xl" to="/cart">
               <IoFastFoodOutline />
