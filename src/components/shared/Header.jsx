@@ -94,7 +94,7 @@ const Header = () => {
           
           <p className="pl-3 lg:pl-0">Hi, {user?.firstName}!</p>
         </div>
-        <Link className="outline outline-1 bg-black text-white px-2 py-2 font-medium ml-3 mt-5" onClick={logout}>Logout</Link>
+        <Link className="outline outline-1 bg-black rounded  text-white px-2 py-2 font-medium ml-3 mt-10" onClick={logout}>Logout</Link>
       </nav>
 
       <div className="hidden lg:flex px-[10%] py-1 hover:cursor-pointer space-x-11 lg:font-mono font-semibold text-black hover:scale-105 duration-200">
