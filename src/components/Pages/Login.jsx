@@ -38,16 +38,17 @@ function Login() {
         const data = await res.json();
         setLoading(false);
 
-        if (data.message === "Invalid Email/Password") {
-            showAndHide("error", "Invalid Email/Password");
-        } else if (data.message === "Please verify your email before logging in.") {
-            showAndHide("error", "Please verify your email before logging in.");
-        } else if (data.token) {
+        if (res.status === 400) {
+            // Handle specific messages
+            showAndHide("error", data.message || "Invalid Email/Password");
+        } else if (res.status === 200) {
+            // Success: token received
             dispatch({ type: "setToken", payload: data.token });
-            setItem(data.token);
-            redirect("/");
+            setItem(data.token); // Assuming setItem stores the token in local storage
+            redirect("/"); // Assuming redirect navigates to the home page
             showAndHide("success", "Login Successful!!!");
         } else {
+            // Handle unexpected errors
             showAndHide("error", "An unexpected error occurred. Please try again.");
         }
     } catch (error) {
@@ -56,6 +57,7 @@ function Login() {
         showAndHide("error", "An error occurred. Please try again.");
     }
 };
+
 
 
   return (
