@@ -20,7 +20,7 @@ const Register = () => {
         e.preventDefault();
 
         // Basic validation
-        if (!firstName || !lastName || !email || !phone || !street || !city || !password || !confirmPassword) {
+        if (!firstName || !email || !password || !confirmPassword) {
             showAndHide("error", "Please fill in all the fields");
             return;
         }
