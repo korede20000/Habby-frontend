@@ -18,19 +18,19 @@ const Register = () => {
     
     const registerHandler = async (e) => {
         e.preventDefault();
-    
-        // Basic validation for required fields
+
+        // Basic validation
         if (!firstName || !email || !password || !confirmPassword) {
-            showAndHide("error", "Please fill in all the required fields.");
+            showAndHide("error", "Please fill in all required fields: First Name, Email, Password, Confirm Password");
             return;
         }
-    
+
         // Password and Confirm Password validation
         if (password !== confirmPassword) {
             showAndHide("error", "Passwords do not match");
             return;
         }
-    
+
         try {
             const res = await fetch("https://habby-api.onrender.com/register", {
                 method: "POST",
@@ -39,20 +39,20 @@ const Register = () => {
                 },
                 body: JSON.stringify({
                     firstName, 
-                    lastName, // Optional
+                    lastName,
                     email,
-                    phone, // Optional
-                    addresses: [{ street, city }], // Optional
+                    phone,
+                    addresses: [{ street, city }], // Ensuring this matches the backend structure
                     password,
                     confirmPassword
                 }),
             });
-    
+
             const data = await res.json();
-    
+
             if (res.status >= 400 && res.status < 500) {
                 showAndHide("error", data.message || "An error occurred during registration");
-            } else if (res.status === 201) {
+            } else if (res.status === 201) { 
                 showAndHide("success", data.message);
                 navigate("/login");
             } else {
@@ -63,7 +63,6 @@ const Register = () => {
             showAndHide("error", "An error occurred during registration. Please try again later.");
         }
     };
-    
     
     return (
         <div className="flex justify-center items-center min-h-screen bg-gray-100">
