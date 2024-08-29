@@ -8,7 +8,7 @@ function useAlert() {
         setAlertInfo({ show: true, message, type });
         setTimeout(() => {
             setAlertInfo({ show: false, message: '', type: '' });
-        }, 3000); 
+        }, 5000); 
     };
     
 
