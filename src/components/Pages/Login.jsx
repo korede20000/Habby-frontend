@@ -12,8 +12,9 @@ function Login() {
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
   const [state, dispatch] = useContext(AuthContext);
-  const { showAndHide, fetchCart } = useContext(FoodContext); // Assuming fetchCart is available in FoodContext
+  const { showAndHide } = useContext(FoodContext);
   const { setItem } = useLocalStorage("auth-token");
+
   const isAuthenticated = state.accessToken !== null;
   const redirect = useNavigate();
 
@@ -21,59 +22,42 @@ function Login() {
     return <Navigate to="/" />;
   }
 
-  const syncCart = async () => {
-    try {
-      const localCart = JSON.parse(localStorage.getItem("cartItems"));
-      if (localCart && localCart.length > 0) {
-        await fetch("https://habby-api.onrender.com/sync-cart", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            "auth-token": state.accessToken,
-          },
-          body: JSON.stringify(localCart),
-        });
-        localStorage.removeItem("cartItems");
-        fetchCart(); // Refresh cart items from backend
-      }
-    } catch (error) {
-      console.error("Failed to sync cart:", error);
-    }
-  };
-
   const loginHandler = async (e) => {
     e.preventDefault();
     setLoading(true);
 
     try {
-      const res = await fetch("https://habby-api.onrender.com/login", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ email, password }),
-      });
+        const res = await fetch("https://habby-api.onrender.com/login", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ email, password }),
+        });
 
-      const data = await res.json();
-      setLoading(false);
+        const data = await res.json();
+        setLoading(false);
 
-      if (res.status === 400) {
-        showAndHide("error", data.message || "Invalid Email/Password");
-      } else if (res.status === 200) {
-        dispatch({ type: "setToken", payload: data.token });
-        setItem(data.token); // Assuming setItem stores the token in local storage
-        await syncCart(); // Sync cart with backend
-        redirect("/"); // Assuming redirect navigates to the home page
-        showAndHide("success", "Login Successful!!!");
-      } else {
-        showAndHide("error", "An unexpected error occurred. Please try again.");
-      }
+        if (res.status === 400) {
+            // Handle specific messages
+            showAndHide("error", data.message || "Invalid Email/Password");
+        } else if (res.status === 200) {
+            // Success: token received
+            dispatch({ type: "setToken", payload: data.token });
+            setItem(data.token); // Assuming setItem stores the token in local storage
+            redirect("/"); // Assuming redirect navigates to the home page
+            showAndHide("success", "Login Successful!!!");
+        } else {
+            // Handle unexpected errors
+            showAndHide("error", "An unexpected error occurred. Please try again.");
+        }
     } catch (error) {
-      setLoading(false);
-      console.error(error);
-      showAndHide("error", "An error occurred. Please try again.");
+        setLoading(false);
+        console.error(error);
+        showAndHide("error", "An error occurred. Please try again.");
     }
-  };
+};
+
 
   return (
     <div className="flex justify-center items-center min-h-screen bg-gray-100">
