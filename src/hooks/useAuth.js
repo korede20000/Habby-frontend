@@ -17,7 +17,7 @@ const useAuth = () => {
                    });
 
                    if(!res.ok){
-                    throw new Error("Failed to fetch user information")
+                    throw new Error("Failed to fetch user information") 
                    }
 
                    const data = await res.json();
