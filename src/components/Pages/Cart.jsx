@@ -5,11 +5,8 @@ import { Link } from "react-router-dom";
 import {Navigate} from "react-router-dom"
 
 const Cart = () => {
-    const {cartItems, fetchCart, updateQuantity, totalAmount, deleteItems, calculateDeliveryFee, isAuthenticated} = useContext(FoodContext);
+    const {cartItems, updateQuantity, totalAmount, deleteItems, calculateDeliveryFee, isAuthenticated} = useContext(FoodContext);
 
-    useEffect(() => {
-        fetchCart(); // Fetch cart items on component mount
-    }, []);
 
     if(!isAuthenticated) {
         return <Navigate to="/login"/>

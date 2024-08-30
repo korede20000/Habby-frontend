@@ -128,49 +128,50 @@ export const FoodProvider = ({ children}) => {
     }
 
 
-    const addToCart = async (menuItemId) =>{
-        try {
+    const addToCart = async (menuItemId) => {
+      try {
           const res = await fetch("https://habby-api.onrender.com/addToCart", {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json", "auth-token": `${localStorage.getItem("auth-token")}`,
-            },
-            body: JSON.stringify({menuItemId, quantity: 1}),
+              method: "POST",
+              headers: {
+                  "Content-Type": "application/json",
+                  "auth-token": `${localStorage.getItem("auth-token")}`,
+              },
+              body: JSON.stringify({ menuItemId, quantity: 1 }),
           });
-    
-          if (!res.ok) {
-            throw new Error("Something Went Wrong")
-          }
-    
-          const data = await res.json()
-          setCartItems(data);
-          showAndHide("success", "item added!")
-        } catch (error) {
-          console.log(error.message);
-          showAndHide("error", "Failed to add item!")
-        }
-      }
 
-      const fetchCart = async () => {
-        try {
-          const res = await fetch("https://habby-api.onrender.com/cart", {
-            method: "GET",
-            headers: {
-              "Content-Type": "application/json",
-              "auth-token": `${localStorage.getItem("auth-token")}`,
-            },
-          });
-    
           if (!res.ok) {
-            throw new Error("Something went wrong")
+              throw new Error("Something Went Wrong");
           }
-            
+
           const data = await res.json();
-          setCartItems(data)
-        } catch (error) {
+          setCartItems(data);
+          showAndHide("success", "Item added!");
+      } catch (error) {
+          console.log(error.message);
+          showAndHide("error", "Failed to add item!");
+      }
+  };
+
+  const fetchCart = async () => {
+      try {
+          const res = await fetch("https://habby-api.onrender.com/cart", {
+              method: "GET",
+              headers: {
+                  "Content-Type": "application/json",
+                  "auth-token": `${localStorage.getItem("auth-token")}`,
+              },
+          });
+
+          if (!res.ok) {
+              throw new Error("Something went wrong");
+          }
+
+          const data = await res.json();
+          setCartItems(data);
+      } catch (error) {
           console.error("Error getting cart", error);
-        }
-      } 
+      }
+  };
 
 
 

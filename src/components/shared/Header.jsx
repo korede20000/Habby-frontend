@@ -97,12 +97,12 @@ const Header = () => {
         <Link className="outline outline-1 bg-black rounded  text-white px-2 py-2 font-medium ml-3 mt-7" onClick={logout}>Logout</Link>
       </nav>
 
-      <div className="hidden lg:flex px-[10%] py-1 hover:cursor-pointer space-x-11 lg:font-mono font-semibold text-black hover:scale-105 duration-200">
-        <Link to="/" className="">Home</Link>
-        <Link to="/menu" className="">Menu</Link>
-        <Link to="/restaurant">Restaurants</Link>
-        <a href="#about">About us</a>
-        <a href="#contact">Contact</a>
+      <div className="hidden lg:flex px-[10%] py-1 hover:cursor-pointer space-x-11 lg:font-mono font-semibold text-black">
+        <Link to="/" className="hover:underline-offset-1">Home</Link>
+        <Link to="/menu" className="hover:underline-offset-1">Menu</Link>
+        <Link to="/restaurant" className="hover:underline-offset-1">Restaurants</Link>
+        <a href="#about" className="hover:underline-offset-1">About us</a>
+        <a href="#contact" className="hover:underline-offset-1">Contact</a>
       </div>
 
       <button onClick={() => setOpen(!open)}
