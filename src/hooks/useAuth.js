@@ -5,35 +5,45 @@ const useAuth = () => {
 
     useEffect(() => {
         const fetchUser = async () => {
-            const token = localStorage.getItem("auth-token")
-            if (token) { 
+            const token = localStorage.getItem("auth-token");
+            if (token) {
                 try {
-                   const res = await fetch("https://habby-api.onrender.com/user", {
-                    method: "GET",
-                    headers: {
-                        "Content-Type": "application/json",
-                        "auth-token": `${localStorage.getItem("auth-token")}`
+                    const res = await fetch("https://habby-api.onrender.com/user", {
+                        method: "GET",
+                        headers: {
+                            "Content-Type": "application/json",
+                            "auth-token": token
+                        }
+                    });
+
+                    if (!res.ok) {
+                        throw new Error("Failed to fetch user information");
                     }
-                   });
 
-                   if(!res.ok){
-                    throw new Error("Failed to fetch user information") 
-                   }
+                    const data = await res.json();
+                    setUser(data);
 
-                   const data = await res.json();
-                   console.log(data)
-                   setUser(data)
-
-                } catch (error) { 
+                } catch (error) {
                     console.log("Error fetching user information", error);
                 }
             }
-        }
+        };
 
-        fetchUser(); 
+        fetchUser();
+
+        // Watch for changes to the auth-token in localStorage
+        const handleStorageChange = () => {
+            fetchUser();
+        };
+
+        window.addEventListener('storage', handleStorageChange);
+
+        return () => {
+            window.removeEventListener('storage', handleStorageChange);
+        };
     }, []);
 
     return { user };
-}
+};
 
 export default useAuth;
