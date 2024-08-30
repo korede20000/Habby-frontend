@@ -40,7 +40,7 @@ const Header = () => {
         </div>
       </nav>
 
-      <div className="hidden lg:flex px-[10%] py-1 hover:cursor-pointer space-x-11 lg:font-mono font-semibold text-black hover:scale-105 duration-200">
+      <div className="hidden lg:flex px-[10%] py-1 hover:cursor-pointer space-x-11 lg:font-mono font-semibold text-black hover:underline">
         <Link to="/" className="">Home</Link>
         <Link to="/menu" className="">Menu</Link>
         <Link to="/restaurant">Restaurants</Link>
