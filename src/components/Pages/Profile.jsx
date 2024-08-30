@@ -52,11 +52,19 @@ const Profile = () => {
                     },
                 });
                 const data = await res.json();
-                setOrders(data); // Replace the current orders state with the fetched data
+        
+                // Filter out duplicate orders based on orderId
+                const uniqueOrders = data.filter((order, index, self) =>
+                    index === self.findIndex((o) => o.orderId === order.orderId)
+                );
+        
+                setOrders(uniqueOrders); // Set unique orders in state
             } catch (error) {
                 console.error("Error fetching orders:", error);
+                showAndHide("error", "Failed to fetch orders. Please try again later.");
             }
         };
+        
 
         fetchOrders()
     }, []);
