@@ -14,9 +14,10 @@ function Login() {
   const [state, dispatch] = useContext(AuthContext);
   const { showAndHide } = useContext(FoodContext);
   const { setItem } = useLocalStorage("auth-token");
+  const { fetchUser } = useAuth(); // Destructure fetchUser from useAuth
+  const redirect = useNavigate();
 
   const isAuthenticated = state.accessToken !== null;
-  const redirect = useNavigate();
 
   if (isAuthenticated) {
     return <Navigate to="/" />;
@@ -27,37 +28,41 @@ function Login() {
     setLoading(true);
 
     try {
-        const res = await fetch("https://habby-api.onrender.com/login", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify({ email, password }),
-        });
+      const res = await fetch("https://habby-api.onrender.com/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ email, password }),
+      });
 
-        const data = await res.json();
-        setLoading(false);
+      const data = await res.json();
+      setLoading(false);
 
-        if (res.status === 400) {
-            // Handle specific messages
-            showAndHide("error", data.message || "Invalid Email/Password");
-        } else if (res.status === 200) {
-            // Success: token received
-            dispatch({ type: "setToken", payload: data.token });
-            setItem(data.token); // Assuming setItem stores the token in local storage
-            redirect("/"); // Assuming redirect navigates to the home page
-            showAndHide("success", "Login Successful!!!");
-        } else {
-            // Handle unexpected errors
-            showAndHide("error", "An unexpected error occurred. Please try again.");
-        }
+      if (res.status === 400) {
+        // Handle specific messages
+        showAndHide("error", data.message || "Invalid Email/Password");
+      } else if (res.status === 200) {
+        // Success: token received
+        dispatch({ type: "setToken", payload: data.token });
+        setItem(data.token); // Store token in local storage
+
+        // Immediately fetch and update user data
+        await fetchUser();
+
+        // Redirect to home page
+        redirect("/");
+        showAndHide("success", "Login Successful!!!");
+      } else {
+        // Handle unexpected errors
+        showAndHide("error", "An unexpected error occurred. Please try again.");
+      }
     } catch (error) {
-        setLoading(false);
-        console.error(error);
-        showAndHide("error", "An error occurred. Please try again.");
+      setLoading(false);
+      console.error(error);
+      showAndHide("error", "An error occurred. Please try again.");
     }
-};
-
+  };
 
   return (
     <div className="flex justify-center items-center min-h-screen bg-gray-100">
